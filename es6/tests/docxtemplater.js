@@ -44,6 +44,7 @@ var fileNames = [
 	"cyrillic.docx",
 	"imageExample.docx",
 	"oneRawXMLTag.docx",
+	"oneRawXMLTagFlawed.docx",
 	"tableComplex2Example.docx",
 	"tableComplexExample.docx",
 	"tagDashLoop.docx",
@@ -747,6 +748,20 @@ TAG`;
 		it("should work with simple example and given options", function () {
 			var scope = {xmlTag: '<w:r><w:rPr><w:color w:val="FF0000"/></w:rPr><w:t>My custom</w:t></w:r><w:r><w:rPr><w:color w:val="00FF00"/></w:rPr><w:t>XML</w:t></w:r>'};
 			const doc = new Docxtemplater(docX["oneRawXMLTag.docx"].loadedContent);
+			doc.setOptions({
+				fileType: "docx",
+				fileTypeConfig: {
+					tagRawXml: "w:r"
+				}
+			});
+			doc.setData(scope);
+			doc.render();
+			expect(doc.getFullText()).to.be.equal("asdfMy customXMLqwery");
+		});
+
+		it("should fail with simple example and given options", function () {
+			var scope = {xmlTag: '<w:r><w:rPr><w:color w:val="FF0000"/></w:rPr><w:t>My custom</w:t></w:r><w:r><w:rPr><w:color w:val="00FF00"/></w:rPr><w:t>XML</w:t></w:r>'};
+			const doc = new Docxtemplater(docX["oneRawXMLTagFlawed.docx"].loadedContent);
 			doc.setOptions({
 				fileType: "docx",
 				fileTypeConfig: {
