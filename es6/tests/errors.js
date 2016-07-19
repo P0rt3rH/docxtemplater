@@ -71,42 +71,6 @@ describe("errors", function () {
 		expectToThrow(xmlTemplater, "render", Errors.XTTemplateError, expectedError);
 	});
 
-	it("should fail when rawtag not in paragraph", function () {
-		var content = "<w:t>{@myrawtag}</w:t>";
-		var scope = {myrawtag: "<w:p><w:t>foobar</w:t></w:p>"};
-		var xmlTemplater = new XmlTemplater(content, {fileTypeConfig: FileTypeConfig.docx, tags: scope});
-		var expectedError = {
-			name: "TemplateError",
-			message: "Can't find endTag",
-			properties: {
-				id: "raw_tag_outerxml_invalid",
-				text: "<w:t>{@myrawtag}</w:t>",
-				xmlTag: "w:p",
-				previousEnd: 16,
-				start: 5,
-				xtag: "@myrawtag",
-			},
-		};
-		expectToThrow(xmlTemplater, "render", Errors.XTTemplateError, expectedError);
-
-		content = "<w:t>{@myrawtag}</w:t></w:p>";
-		scope = {myrawtag: "<w:p><w:t>foobar</w:t></w:p>"};
-		xmlTemplater = new XmlTemplater(content, {fileTypeConfig: FileTypeConfig.docx, tags: scope});
-		expectedError = {
-			name: "TemplateError",
-			message: "Can't find startTag",
-			properties: {
-				id: "raw_tag_outerxml_invalid",
-				text: "<w:t>{@myrawtag}</w:t></w:p>",
-				xmlTag: "w:p",
-				previousEnd: 16,
-				start: 5,
-				xtag: "@myrawtag",
-			},
-		};
-		expectToThrow(xmlTemplater, "render", Errors.XTTemplateError, expectedError);
-	});
-
 	it("should fail when tag already opened", function () {
 		var content = "<w:t>{user {name}</w:t>";
 		var xmlTemplater = new XmlTemplater(content, {fileTypeConfig: FileTypeConfig.docx});
@@ -165,22 +129,22 @@ describe("errors", function () {
 		expectToThrow(xmlTemplater, "render", Errors.XTScopeParserError, expectedError);
 	});
 
-	it("should fail when rawtag is not only text in paragraph", function () {
-		var content = "<w:p><w:t>{@myrawtag}</w:t><w:t>foobar</w:t></w:p>";
-		var scope = {myrawtag: "<w:p><w:t>foobar</w:t></w:p>"};
-		var xmlTemplater = new XmlTemplater(content, {fileTypeConfig: FileTypeConfig.docx, tags: scope});
-		var expectedError = {
-			name: "TemplateError",
-			message: "Raw xml tag should be the only text in paragraph",
-			properties: {
-				id: "raw_xml_tag_should_be_only_text_in_paragraph",
-				paragraphContent: "{@myrawtag}foobar",
-				xtag: "@myrawtag",
-				fullTag: "{@myrawtag}",
-			},
-		};
-		expectToThrow(xmlTemplater, "render", Errors.XTTemplateError, expectedError);
-	});
+	// it.only("should fail when rawtag is not only text in paragraph", function () {
+	// 	var content = "<w:p><w:t>{@myrawtag}</w:t><w:t>foobar</w:t></w:p>";
+	// 	var scope = {myrawtag: "<w:p><w:t>foobar</w:t></w:p>"};
+	// 	var xmlTemplater = new XmlTemplater(content, {fileTypeConfig: FileTypeConfig.docx, tags: scope});
+	// 	var expectedError = {
+	// 		name: "TemplateError",
+	// 		message: "Raw xml tag should be the only text in paragraph",
+	// 		properties: {
+	// 			id: "raw_xml_tag_should_be_only_text_in_paragraph",
+	// 			paragraphContent: "{@myrawtag}foobar",
+	// 			xtag: "@myrawtag",
+	// 			fullTag: "{@myrawtag}",
+	// 		},
+	// 	};
+	// 	expectToThrow(xmlTemplater, "render", Errors.XTTemplateError, expectedError);
+	// });
 
 	describe("internal errors", function () {
 		it("should fail", function () {

@@ -153,7 +153,11 @@ module.exports = class XmlTemplater {
 		var subContent = new SubContent(this.content);
 		subContent.getInnerTag(this.templaterState);
 		try {
-			outerXml = subContent.getOuterXml(this.fileTypeConfig.tagRawXml);
+			// console.log('getting outer xml');
+			// console.log(this.fileTypeConfig.tagRawXml);
+			// this.fileTypeConfig.tagRawXml = 'w:t';
+			outerXml = subContent.getOuterXml('w:t');//this.fileTypeConfig.tagRawXml);
+			//console.log(outerXml);
 		}
 		catch (error) {
 			if (error instanceof Errors.XTTemplateError) {
