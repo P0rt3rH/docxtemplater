@@ -1,8 +1,8 @@
 {
-  "name": "docxtemplater",
+  "name": "docxtemplaterCopy",
   "version": "2.1.2",
   "author": "Edgar Hipp",
-  "description": ".docx generator working with templates and data (like Mustache)",
+  "description": "A copy of docxtemplater.",
   "contributors": [
     {
       "name": "Edgar Hipp"
@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/open-xml-templating/docxtemplater"
+    "url": "https://github.com/P0rt3rH/docxtemplater"
   },
   "dependencies": {
     "jszip": "^2.6.0",
