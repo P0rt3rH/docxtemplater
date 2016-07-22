@@ -745,7 +745,7 @@ TAG`;
 			expect(doc.content).to.contain(scope.complexXml);
 		});
 
-		it("should work with simple example and given options", function () {
+		it("should work with simple example and given options via docxtemplater", function () {
 			var scope = {xmlTag: '<w:r><w:rPr><w:color w:val="FF0000"/></w:rPr><w:t>My custom</w:t></w:r><w:r><w:rPr><w:color w:val="00FF00"/></w:rPr><w:t>XML</w:t></w:r>'};
 			const doc = new Docxtemplater(docX["oneRawXMLTag.docx"].loadedContent);
 			doc.setOptions({
